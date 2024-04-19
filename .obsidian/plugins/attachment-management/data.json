@@ -1,0 +1,51 @@
+{
+  "attachPath": {
+    "attachmentRoot": "attachments",
+    "saveAttE": "obsFolder",
+    "attachmentPath": "images",
+    "attachFormat": "${notename}-${originalname}",
+    "type": "GLOBAL",
+    "extensionOverride": [
+      {
+        "extension": "pdf",
+        "attachmentRoot": "",
+        "saveAttE": "obsFolder",
+        "attachmentPath": "pdf/",
+        "attachFormat": "${notename}-${originalname}"
+      },
+      {
+        "extension": "py",
+        "attachmentRoot": "attachments",
+        "saveAttE": "obsFolder",
+        "attachmentPath": "python",
+        "attachFormat": "${notename}-${originalname}"
+      }
+    ]
+  },
+  "dateFormat": "YYYYMMDDHHmmssSSS",
+  "excludeExtensionPattern": "",
+  "autoRenameAttachment": true,
+  "excludedPaths": "",
+  "excludePathsArray": [],
+  "excludeSubpaths": false,
+  "originalNameStorage": [
+    {
+      "n": "aa",
+      "md5": "2406E63089CC5491C76C203790FB921A"
+    },
+    {
+      "n": "Pasted image 20240419145424",
+      "md5": "77C54236A609478F5D6162D5AE47CD92"
+    },
+    {
+      "n": "Pasted image 20240419145832",
+      "md5": "EC7B98F5FFED87C1BE77A6A70F55DBD7"
+    },
+    {
+      "n": "Pasted image 20240419161324",
+      "md5": "A6C773C38E90916B93F42EC65451371D"
+    }
+  ],
+  "overridePath": {},
+  "disableNotification": false
+}

@@ -2,5 +2,8 @@
   "showLineNumber": true,
   "alwaysUpdateLinks": true,
   "trashOption": "local",
-  "attachmentFolderPath": "./"
+  "attachmentFolderPath": "./attachments",
+  "promptDelete": false,
+  "livePreview": false,
+  "autoConvertHtml": false
 }
