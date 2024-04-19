@@ -1,6 +1,6 @@
 {
   "attachPath": {
-    "attachmentRoot": "attachments",
+    "attachmentRoot": "/",
     "saveAttE": "obsFolder",
     "attachmentPath": "files",
     "attachFormat": "${notename}-${originalname}",
@@ -15,14 +15,14 @@
       },
       {
         "extension": "py|vue|cpp|go|js|css",
-        "attachmentRoot": "attachments",
+        "attachmentRoot": "",
         "saveAttE": "obsFolder",
         "attachmentPath": "code",
         "attachFormat": "${notename}-${originalname}"
       },
       {
         "extension": "png|jpg|jpeg|bmp",
-        "attachmentRoot": "attachments",
+        "attachmentRoot": ".",
         "saveAttE": "obsFolder",
         "attachmentPath": "images",
         "attachFormat": "${notename}-${originalname}"
@@ -37,34 +37,69 @@
   "excludeSubpaths": false,
   "originalNameStorage": [
     {
-      "n": "aa",
-      "md5": "2406E63089CC5491C76C203790FB921A"
+      "n": "Pasted image 20240419173111",
+      "md5": "813DE38885E650DDE75E7F01D21972B3"
     },
     {
-      "n": "Pasted image 20240419145424",
-      "md5": "77C54236A609478F5D6162D5AE47CD92"
+      "n": "Pasted image 20240419171854",
+      "md5": "E77F9878F56B62C83BCC35F4057A5DC5"
     },
     {
-      "n": "Pasted image 20240419145832",
-      "md5": "EC7B98F5FFED87C1BE77A6A70F55DBD7"
+      "n": "Pasted image 20240419171624",
+      "md5": "89B44499AB4B4C5610DAF11CA5801178"
     },
     {
-      "n": "Pasted image 20240419161324",
-      "md5": "A6C773C38E90916B93F42EC65451371D"
+      "n": "Pasted image 20240419171109",
+      "md5": "6FC7CDDDECBB0E52841AF3B534E067AF"
     },
     {
-      "n": "Pasted image 20240419163044",
-      "md5": "D19F6243FF1E5642D00D7564C3EE5E9F"
+      "n": "Pasted image 20240419170228",
+      "md5": "FC2E7341D593725A84A88B554AFED965"
     },
     {
-      "n": "Pasted image 20240419163118",
-      "md5": "73882991562F59B578C12B568BB3DB79"
+      "n": "Pasted image 20240419165925",
+      "md5": "28897A6DE53A539196D723F699481286"
     },
     {
-      "n": "Pasted image 20240419163708",
-      "md5": "DAC5D4CE35D658B1CE1C801CD86E9190"
+      "n": "Pasted image 20240419174327",
+      "md5": "637C9BAF94252DCF2BE96003EBE0C8F7"
+    },
+    {
+      "n": "Pasted image 20240419174421",
+      "md5": "5A2E773E2CAF8188DA1180E0C3244D16"
     }
   ],
-  "overridePath": {},
+  "overridePath": {
+    "Django/attachments": {
+      "attachmentRoot": "Django/attachments",
+      "saveAttE": "inFolderBelow",
+      "attachmentPath": "files",
+      "attachFormat": "${notename}-${originalname}",
+      "type": "FOLDER",
+      "extensionOverride": [
+        {
+          "extension": "pdf",
+          "attachmentRoot": "Django/attachments",
+          "saveAttE": "inFolderBelow",
+          "attachmentPath": "pdf",
+          "attachFormat": "${notename}-${originalname}"
+        },
+        {
+          "extension": "py|vue|cpp|go|js|css",
+          "attachmentRoot": "Django/attachments",
+          "saveAttE": "inFolderBelow",
+          "attachmentPath": "code",
+          "attachFormat": "${notename}-${originalname}"
+        },
+        {
+          "extension": "png|jpg|jpeg|bmp",
+          "attachmentRoot": "Django/attachments",
+          "saveAttE": "inFolderBelow",
+          "attachmentPath": "images",
+          "attachFormat": "${notename}-${originalname}"
+        }
+      ]
+    }
+  },
   "disableNotification": false
 }
