@@ -2,7 +2,7 @@
   "attachPath": {
     "attachmentRoot": "attachments",
     "saveAttE": "obsFolder",
-    "attachmentPath": "images",
+    "attachmentPath": "files",
     "attachFormat": "${notename}-${originalname}",
     "type": "GLOBAL",
     "extensionOverride": [
@@ -10,14 +10,21 @@
         "extension": "pdf",
         "attachmentRoot": "",
         "saveAttE": "obsFolder",
-        "attachmentPath": "pdf/",
+        "attachmentPath": "pdf",
         "attachFormat": "${notename}-${originalname}"
       },
       {
-        "extension": "py",
+        "extension": "py|vue|cpp|go|js|css",
         "attachmentRoot": "attachments",
         "saveAttE": "obsFolder",
-        "attachmentPath": "python",
+        "attachmentPath": "code",
+        "attachFormat": "${notename}-${originalname}"
+      },
+      {
+        "extension": "png|jpg|jpeg|bmp",
+        "attachmentRoot": "attachments",
+        "saveAttE": "obsFolder",
+        "attachmentPath": "images",
         "attachFormat": "${notename}-${originalname}"
       }
     ]
@@ -44,6 +51,18 @@
     {
       "n": "Pasted image 20240419161324",
       "md5": "A6C773C38E90916B93F42EC65451371D"
+    },
+    {
+      "n": "Pasted image 20240419163044",
+      "md5": "D19F6243FF1E5642D00D7564C3EE5E9F"
+    },
+    {
+      "n": "Pasted image 20240419163118",
+      "md5": "73882991562F59B578C12B568BB3DB79"
+    },
+    {
+      "n": "Pasted image 20240419163708",
+      "md5": "DAC5D4CE35D658B1CE1C801CD86E9190"
     }
   ],
   "overridePath": {},
