@@ -15,5 +15,6 @@
   "highlightr-plugin",
   "cm-typewriter-scroll-obsidian",
   "obsidian-admonition",
-  "vscode-editor"
+  "vscode-editor",
+  "obsidian-folder-index"
 ]
