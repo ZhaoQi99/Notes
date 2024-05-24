@@ -16,7 +16,9 @@
   "useBulletPoints": true,
   "excludeFolders": [
     "attachments",
-    "LICENSE"
+    "LICENSE",
+    "README",
+    "images"
   ],
   "recursionLimit": -1,
   "headlineLimit": 6

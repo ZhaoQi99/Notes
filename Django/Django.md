@@ -1,5 +1,3 @@
-# Notes
 
 ```folder-index-content
 ```
-
