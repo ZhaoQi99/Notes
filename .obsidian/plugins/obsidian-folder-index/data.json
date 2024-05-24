@@ -1,20 +1,23 @@
 {
-  "disableHeadlines": false,
-  "graphOverwrite": false,
+  "disableHeadlines": true,
+  "graphOverwrite": true,
   "rootIndexFile": "Index.md",
   "autoCreateIndexFile": true,
   "autoRenameIndexFile": true,
-  "includeFileContent": true,
+  "includeFileContent": false,
   "hideIndexFiles": false,
-  "indexFileInitText": "---\ntags: MOCs\n---\n```folder-index-content\n```",
+  "indexFileInitText": "\n```folder-index-content\n```",
   "autoPreviewMode": true,
   "sortIndexFiles": "Alphabetically",
   "sortHeaders": "Disabled",
-  "recursiveIndexFiles": false,
+  "recursiveIndexFiles": true,
   "renderFolderBold": true,
   "renderFolderItalic": false,
-  "useBulletPoints": false,
-  "excludeFolders": [],
+  "useBulletPoints": true,
+  "excludeFolders": [
+    "attachments",
+    "LICENSE"
+  ],
   "recursionLimit": -1,
   "headlineLimit": 6
 }

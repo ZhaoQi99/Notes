@@ -13,8 +13,8 @@
   "obsidian-plugin-toc",
   "easy-typing-obsidian",
   "highlightr-plugin",
-  "cm-typewriter-scroll-obsidian",
   "obsidian-admonition",
   "vscode-editor",
-  "obsidian-folder-index"
+  "obsidian-folder-index",
+  "typewriter-mode"
 ]

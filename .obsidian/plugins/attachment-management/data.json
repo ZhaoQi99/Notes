@@ -69,37 +69,6 @@
       "md5": "37D38FC06DE4C1731F9CD7F27EEC1655"
     }
   ],
-  "overridePath": {
-    "Django/attachments": {
-      "attachmentRoot": "Django/attachments",
-      "saveAttE": "inFolderBelow",
-      "attachmentPath": "files",
-      "attachFormat": "${notename}-${originalname}",
-      "type": "FOLDER",
-      "extensionOverride": [
-        {
-          "extension": "pdf",
-          "attachmentRoot": "Django/attachments",
-          "saveAttE": "inFolderBelow",
-          "attachmentPath": "pdf",
-          "attachFormat": "${notename}-${originalname}"
-        },
-        {
-          "extension": "py|vue|cpp|go|js|css",
-          "attachmentRoot": "Django/attachments",
-          "saveAttE": "inFolderBelow",
-          "attachmentPath": "code",
-          "attachFormat": "${notename}-${originalname}"
-        },
-        {
-          "extension": "png|jpg|jpeg|bmp",
-          "attachmentRoot": "Django/attachments",
-          "saveAttE": "inFolderBelow",
-          "attachmentPath": "images",
-          "attachFormat": "${notename}-${originalname}"
-        }
-      ]
-    }
-  },
+  "overridePath": {},
   "disableNotification": false
 }
