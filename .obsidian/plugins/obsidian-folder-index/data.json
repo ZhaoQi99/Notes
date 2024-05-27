@@ -18,7 +18,8 @@
     "attachments",
     "LICENSE",
     "README",
-    "images"
+    "images",
+    "contents"
   ],
   "recursionLimit": -1,
   "headlineLimit": 6
