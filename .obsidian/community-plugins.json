@@ -1,5 +1,4 @@
 [
-  "obsidian-git",
   "emoji-shortcodes",
   "obsidian-auto-link-title",
   "oz-clear-unused-images",
@@ -16,5 +15,7 @@
   "obsidian-admonition",
   "vscode-editor",
   "obsidian-folder-index",
-  "typewriter-mode"
+  "typewriter-mode",
+  "code-styler",
+  "obsidian-git"
 ]
