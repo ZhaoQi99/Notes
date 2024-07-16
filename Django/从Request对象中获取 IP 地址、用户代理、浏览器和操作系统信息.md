@@ -1,5 +1,7 @@
-1. `pip install user_agents`
-2. Mac OS 11. x 及更高版本的 UA 是 Mac OS 10. x 的最新稳定版本 [216593 – \[macOS\] Limit reported macOS release to 10.15 series](https://bugs.webkit.org/show_bug.cgi?id=216593)
+ `pip install user_agents`
+
+> [!attention] 
+> 1. Mac OS 11. x 及更高版本的 UA 是 Mac OS 10. x 的最新稳定版本 [216593 – \[macOS\] Limit reported macOS release to 10.15 series](https://bugs.webkit.org/show_bug.cgi?id=216593)
 
 ```python
 from user_agents import parse
