@@ -51,7 +51,7 @@ var __async = (__this, __arguments, generator) => {
 __export(exports, {
   default: () => FolderIndexPlugin
 });
-var import_obsidian6 = __toModule(require("obsidian"));
+var import_obsidian7 = __toModule(require("obsidian"));
 
 // src/modules/IndexContentProcessorModule.ts
 var import_obsidian3 = __toModule(require("obsidian"));
@@ -69,6 +69,9 @@ function isIndexFile(path) {
   if (pathParts.length < 2)
     return false;
   const fileName = pathParts[pathParts.length - 1];
+  if (FolderIndexPlugin.PLUGIN.settings.indexFileUserSpecified) {
+    return fileName == FolderIndexPlugin.PLUGIN.settings.indexFilename + ".md";
+  }
   const folderName = pathParts[pathParts.length - 2] + ".md";
   return fileName == folderName || fileName == FolderIndexPlugin.PLUGIN.settings.rootIndexFile;
 }
@@ -77,6 +80,13 @@ function isExcludedPath(path) {
     if (excludedFolder == "")
       continue;
     if (RegExp(`^${excludedFolder}$`).test(path))
+      return true;
+  }
+  for (const pattern of FolderIndexPlugin.PLUGIN.settings.excludePatterns) {
+    if (pattern == "")
+      continue;
+    const escapedPattern = pattern.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/\\\*/g, ".*");
+    if (new RegExp(escapedPattern, "i").test(path))
       return true;
   }
   return false;
@@ -89,6 +99,8 @@ var SortBy;
   SortBy2["None"] = "Disabled";
   SortBy2["Alphabetically"] = "Alphabetically";
   SortBy2["ReverseAlphabetically"] = "Reverse Alphabetically";
+  SortBy2["Natural"] = "Natural";
+  SortBy2["ReverseNatural"] = "Reverse Natural";
 })(SortBy || (SortBy = {}));
 var DEFAULT_SETTINGS = {
   disableHeadlines: false,
@@ -107,8 +119,11 @@ var DEFAULT_SETTINGS = {
   renderFolderItalic: false,
   useBulletPoints: false,
   excludeFolders: [],
+  excludePatterns: [],
   recursionLimit: -1,
-  headlineLimit: 6
+  headlineLimit: 6,
+  indexFileUserSpecified: false,
+  indexFilename: "!"
 };
 var PluginSettingsTab = class extends import_obsidian.PluginSettingTab {
   constructor(app, plugin) {
@@ -150,12 +165,28 @@ var PluginSettingsTab = class extends import_obsidian.PluginSettingTab {
       component.inputEl.rows = 8;
       component.inputEl.cols = 50;
     });
+    new import_obsidian.Setting(containerEl).setName("Excluded Patterns").setDesc("Files and folders matching these patterns will be excluded from the content renderer. Use * as wildcard. One pattern per line.").addTextArea((component) => {
+      component.setPlaceholder("Assets\n*img*\n*.pdf").setValue(this.plugin.settings.excludePatterns.join("\n")).onChange((value) => __async(this, null, function* () {
+        this.plugin.settings.excludePatterns = value.split("\n");
+        yield this.plugin.saveSettings();
+      }));
+      component.inputEl.rows = 8;
+      component.inputEl.cols = 50;
+    });
     new import_obsidian.Setting(containerEl).setName("Automatically generate IndexFile").setDesc("This will automatically create an IndexFile when you create a new folder").addToggle((component) => component.setValue(this.plugin.settings.autoCreateIndexFile).onChange((value) => __async(this, null, function* () {
       this.plugin.settings.autoCreateIndexFile = value;
       yield this.plugin.saveSettings();
     })));
     new import_obsidian.Setting(containerEl).setName("Automatically Rename IndexFile").setDesc("This will automatically rename the folders index file as you rename folders").addToggle((component) => component.setValue(this.plugin.settings.autoRenameIndexFile).onChange((value) => __async(this, null, function* () {
       this.plugin.settings.autoRenameIndexFile = value;
+      yield this.plugin.saveSettings();
+    })));
+    new import_obsidian.Setting(containerEl).setName("User defined index filename").setDesc("This will automatically create an IndexFile with the user defined name").addToggle((component) => component.setValue(this.plugin.settings.indexFileUserSpecified).onChange((value) => __async(this, null, function* () {
+      this.plugin.settings.indexFileUserSpecified = value;
+      yield this.plugin.saveSettings();
+    })));
+    new import_obsidian.Setting(containerEl).setName("Index filename").setDesc("the filename that is used as the folder index").addText((component) => component.setValue(this.plugin.settings.indexFilename).setPlaceholder("!.md").onChange((value) => __async(this, null, function* () {
+      this.plugin.settings.indexFilename = value;
       yield this.plugin.saveSettings();
     })));
     new import_obsidian.Setting(containerEl).setName("Hide IndexFile").setDesc("This will hide IndexFiles from the file explorer (Disabled as it causes bugs right now)").addToggle((component) => component.setValue(this.plugin.settings.hideIndexFiles).onChange((value) => __async(this, null, function* () {
@@ -410,8 +441,33 @@ var MarkdownTextRenderer = class {
       fileTree.sort((a, b) => a.name.localeCompare(b.name));
     } else if (this.plugin.settings.sortIndexFiles === SortBy.ReverseAlphabetically) {
       fileTree.sort((a, b) => b.name.localeCompare(a.name));
+    } else if (this.plugin.settings.sortIndexFiles === SortBy.Natural) {
+      fileTree.sort((a, b) => this.naturalSort(a.name, b.name));
+    } else if (this.plugin.settings.sortIndexFiles === SortBy.ReverseNatural) {
+      fileTree.sort((a, b) => this.naturalSort(b.name, a.name));
     }
     return fileTree;
+  }
+  naturalSort(a, b) {
+    const re = /(\d+)|(\D+)/g;
+    const aParts = a.split(re).filter((item) => item !== void 0 && item.length > 0);
+    const bParts = b.split(re).filter((item) => item !== void 0 && item.length > 0);
+    for (let i = 0; i < Math.min(aParts.length, bParts.length); i++) {
+      const aPart = aParts[i];
+      const bPart = bParts[i];
+      if (!isNaN(Number(aPart)) && !isNaN(Number(bPart))) {
+        const numA = Number(aPart);
+        const numB = Number(bPart);
+        if (numA !== numB) {
+          return numA - numB;
+        }
+      } else {
+        if (aPart !== bPart) {
+          return aPart.localeCompare(bPart);
+        }
+      }
+    }
+    return aParts.length - bParts.length;
   }
   buildIndentLevel(indentLevel) {
     let indentText = "";
@@ -681,9 +737,6 @@ var GraphManipulatorModule = class {
   }
 };
 
-// src/main.ts
-var import_events = __toModule(require("events"));
-
 // src/modules/FolderNoteModule.ts
 var import_obsidian5 = __toModule(require("obsidian"));
 var FolderNoteModule = class {
@@ -728,6 +781,14 @@ var FolderNoteModule = class {
     }
     return null;
   }
+  indexFilePath(path) {
+    if (this.plugin.settings.indexFileUserSpecified) {
+      return path + "/" + this.plugin.settings.indexFilename + ".md";
+    } else {
+      const folderName = path.split("/").pop();
+      return path + "/" + folderName + ".md";
+    }
+  }
   onClick(event) {
     return __async(this, null, function* () {
       const target = this.getTargetFromEvent(event);
@@ -740,8 +801,7 @@ var FolderNoteModule = class {
       } else {
         dataPath = dataPathAttribute.value;
       }
-      const folderName = dataPath.split("/").pop();
-      let indexFilePath = dataPath + "/" + folderName + ".md";
+      let indexFilePath = this.indexFilePath(dataPath);
       if (indexFilePath == "//.md") {
         indexFilePath = this.plugin.settings.rootIndexFile;
       }
@@ -857,14 +917,95 @@ var FolderNoteModule = class {
   onCreate(file) {
     return __async(this, null, function* () {
       if (file instanceof import_obsidian5.TFolder) {
-        yield this.createIndexFile(`${file.path}/${file.name}.md`);
+        const indexFilePath = this.indexFilePath(file.path);
+        yield this.createIndexFile(indexFilePath);
       }
     });
   }
 };
 
+// src/modules/ContextMenuModule.ts
+var import_obsidian6 = __toModule(require("obsidian"));
+var ContextMenuModule = class {
+  constructor(app, plugin) {
+    this.app = app;
+    this.plugin = plugin;
+  }
+  addFolderContextMenu() {
+    this.app.workspace.on("file-menu", (menu, folder) => {
+      if (folder instanceof import_obsidian6.TFolder) {
+        const indexFileForFolder = this.getIndexFileForFolder(folder.path);
+        if (!this.doesIndexFileExistForFolder(indexFileForFolder)) {
+          menu.addItem((item) => {
+            item.setTitle("Create Index File").setIcon("any-icon").onClick(() => this.createIndexFileForFolder(indexFileForFolder));
+          });
+        }
+      }
+    });
+  }
+  doesIndexFileExistForFolder(fullPath) {
+    return this.app.vault.getAbstractFileByPath(fullPath) != null;
+  }
+  getIndexFileForFolder(path) {
+    return path + "/" + this.getIndexFileName(path) + ".md";
+  }
+  getIndexFileName(path) {
+    return this.plugin.settings.indexFileUserSpecified ? this.plugin.settings.indexFilename : path.split("/").pop() || "";
+  }
+  createIndexFileForFolder(indexFileForFolder) {
+    return __async(this, null, function* () {
+      const filePath = indexFileForFolder.substring(0, indexFileForFolder.lastIndexOf("/"));
+      try {
+        const newFile = yield this.app.vault.create(indexFileForFolder, this.plugin.settings.indexFileInitText.replace("{{folder}}", this.getIndexFileForFolder(indexFileForFolder)));
+        new import_obsidian6.Notice(`File "${newFile.name}" created successfully in folder "${newFile.path}".`);
+        console.log(`File created at path: ${newFile.path}`);
+      } catch (error) {
+        console.error(`Failed to create file at path: ${filePath}`, error);
+        new import_obsidian6.Notice("Failed to create file. See console for details.");
+      }
+    });
+  }
+};
+
+// src/modules/CustomEventTarget.ts
+var CustomEventTarget = class extends EventTarget {
+  constructor() {
+    super(...arguments);
+    this.listenersMap = new Map();
+  }
+  emit(eventName, detail) {
+    const event = new CustomEvent(eventName, { detail });
+    this.dispatchEvent(event);
+  }
+  on(eventName, callback) {
+    this.addEventListener(eventName, callback);
+    const listeners = this.listenersMap.get(eventName) || [];
+    listeners.push(callback);
+    this.listenersMap.set(eventName, listeners);
+  }
+  removeAllListeners() {
+    for (const [eventName, listeners] of this.listenersMap.entries()) {
+      for (const listener of listeners) {
+        this.removeEventListener(eventName, listener);
+      }
+    }
+    this.listenersMap.clear();
+  }
+  off(eventName, callback) {
+    const listeners = this.listenersMap.get(eventName);
+    if (listeners) {
+      const listenerIndex = listeners.indexOf(callback);
+      if (listenerIndex !== -1) {
+        this.removeEventListener(eventName, callback);
+        listeners.splice(listenerIndex, 1);
+        this.listenersMap.set(eventName, listeners);
+      }
+    }
+  }
+};
+
 // src/main.ts
-var FolderIndexPlugin = class extends import_obsidian6.Plugin {
+var FolderIndexPlugin = class extends import_obsidian7.Plugin {
   constructor(app, manifest) {
     super(app, manifest);
     this.oldGraphSetting = false;
@@ -873,7 +1014,7 @@ var FolderIndexPlugin = class extends import_obsidian6.Plugin {
   onload() {
     return __async(this, null, function* () {
       console.log("Loading FolderTableContent");
-      this.eventManager = new import_events.EventEmitter();
+      this.eventManager = new CustomEventTarget();
       yield this.loadSettings();
       this.settings.hideIndexFiles = false;
       yield this.saveSettings();
@@ -889,6 +1030,8 @@ var FolderIndexPlugin = class extends import_obsidian6.Plugin {
       if (this.settings.graphOverwrite) {
         this.graphManipulator = new GraphManipulatorModule(this.app, this);
       }
+      this.contextMenuModule = new ContextMenuModule(this.app, this);
+      this.contextMenuModule.addFolderContextMenu();
     });
   }
   onSettingsUpdate() {
@@ -930,3 +1073,5 @@ var FolderIndexPlugin = class extends import_obsidian6.Plugin {
     });
   }
 };
+
+/* nosourcemap */

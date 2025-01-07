@@ -16,7 +16,7 @@
   "vscode-editor",
   "obsidian-folder-index",
   "typewriter-mode",
-  "code-styler",
   "obsidian-git",
-  "better-export-pdf"
+  "better-export-pdf",
+  "codeblock-customizer"
 ]
