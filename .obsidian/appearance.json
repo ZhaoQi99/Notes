@@ -2,6 +2,7 @@
   "accentColor": "#8a5cf5",
   "monospaceFontFamily": "JetBrains Mono",
   "translucency": false,
-  "cssTheme": "Minimal",
-  "theme": "moonstone"
+  "cssTheme": "",
+  "theme": "moonstone",
+  "enabledCssSnippets": []
 }

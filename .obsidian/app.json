@@ -1,10 +1,10 @@
 {
-  "showLineNumber": true,
+  "showLineNumber": false,
   "alwaysUpdateLinks": true,
   "trashOption": "local",
   "attachmentFolderPath": "./attachments",
   "promptDelete": false,
-  "livePreview": false,
+  "livePreview": true,
   "autoConvertHtml": false,
   "pdfExportSettings": {
     "includeName": true,
