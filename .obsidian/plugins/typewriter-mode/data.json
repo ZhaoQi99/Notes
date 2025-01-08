@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "isAnnounceUpdatesEnabled": true,
-  "isPluginActivated": true,
+  "isPluginActivated": false,
   "isTypewriterScrollEnabled": true,
   "isOnlyActivateAfterFirstInteractionEnabled": false,
   "isOnlyMaintainTypewriterOffsetWhenReachedEnabled": false,
