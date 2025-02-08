@@ -1,5 +1,5 @@
 * Usage: `python manage.py runscript stats_worker`
-
+`<app>/scripts/stats_worker.py`:
 ```python title:<app>/scripts/stats_worker.py
 from django.conf import settings
 

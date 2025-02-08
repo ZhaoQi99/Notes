@@ -1,4 +1,4 @@
-Examples:
+Example `views.py`:
 ```python title:views.py
 from django_filters import rest_framework as filters
 
@@ -14,6 +14,8 @@ class TestFilterSet(filters.FilterSet):
 ```
 *  `localhost:8000/test/?field=a,b,c`
 * `localhost:8000/test/?field=a`
+
+`filters.py`:
 ```python title:filters.py
 import django_filters
 
