@@ -67,14 +67,14 @@ def serializer_factory(
         meta_attrs["fields"] = fields
 
     meta = type("Meta", (), meta_attrs)
-    serializer = type(
+    serializer_class = type(
         "{prefix}{model}Serializer".format(
             prefix=name_prefix, model=model._meta.object_name
         ),
         (*(bases or ()), serializers.ModelSerializer),
         {"Meta": meta, **(attrs or {})},
     )
-    return serializer
+    return serializer_class
 ```
 Examples:
 ```python

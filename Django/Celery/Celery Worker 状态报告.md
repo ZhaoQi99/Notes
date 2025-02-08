@@ -1,4 +1,4 @@
-* Usage: `python manage.py runscript status_worker`
+* Usage: `python manage.py runscript stats_worker`
 
 ```python title:<app>/scripts/stats_worker.py
 from django.conf import settings
