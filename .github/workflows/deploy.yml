@@ -25,6 +25,10 @@ jobs:
           submodules: true
           fetch-depth: 0 # Fetch all history for git info
 
+      - name: Sync latest submodules
+        run: |
+          git submodule update --remote
+
       - uses: actions/setup-node@v4
         with:
           node-version: 22
