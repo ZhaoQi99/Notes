@@ -37,8 +37,20 @@ class NumpyEncoder(json.JSONEncoder):
             return o.tolist()
         elif isinstance(o, (np.bool_)):
             return bool(o)
-        elif isinstance(o, (np.void, np.nan)):
+        elif isinstance(o, (np.void)):
             return None
-        return json.JSONEncoder.default(self, o)
+        return super(NumpyEncoder, self).default(o)
 
+```
+
+> [!note] '-Infinity', 'Infinity' 或 'NaN'
+
+```python
+constant_map = {
+    # keep exception for infinity and -infinity.
+    "-Infinity": float("-Infinity"),
+    "Infinity": float("Infinity"),
+    "NaN": None,
+}
+json.loads(json_str, parse_constant=lambda x: constant_map[x])
 ```
