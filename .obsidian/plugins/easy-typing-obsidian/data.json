@@ -53,7 +53,8 @@
   "EnhanceModA": false,
   "TryFixChineseIM": true,
   "PuncRectify": false,
-  "FixMacOSContextMenu": false,
+  "FixMacOSContextMenu": true,
   "TryFixMSIME": false,
+  "CollapsePersistentEnter": false,
   "EnterTwice": false
 }
