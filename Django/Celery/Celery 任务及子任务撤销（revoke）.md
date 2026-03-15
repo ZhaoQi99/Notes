@@ -40,7 +40,7 @@ def test_workflow(num=2):
 	return workflow
 ```
 ## Note
-* `chord` 返回值是**回调任务的 `AsyncResult` (`workflow.id` 是 `summarize.s()` 任务的 ID)
+* `chord` 返回值是回调任务的 `AsyncResult` (`workflow.id` 是 `summarize.s()` 任务的 ID)
 * `group` 只有 1 个子任务时,也会升级为 chord,但是callback 的参数和多子任务时不同 (非 list, 为单个值)
 
 ## 参考文档

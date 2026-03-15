@@ -15,6 +15,6 @@ import time
 def get_ttl_hash (seconds=60):
     """Return the same value withing `seconds` time period"""
     return round (time.time () / seconds)
-
-
 ```
+## Alternative
+- cachetools.TTLCache: https://cachetools.readthedocs.io/en/stable/#cachetools.TTLCache

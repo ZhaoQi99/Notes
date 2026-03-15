@@ -78,18 +78,18 @@ export default {
 ## ColumnOptions Attributes
 
 |      参数       |        说明        |  类型  |      可选值       | 默认值 |
-|:---------------:|:------------------:|:------:|:-----------------:|:------:|
+| :-------------: | :----------------: | :----: | :---------------: | :----: |
 | value / v-model |       绑定值       | array  |         -         |   -    |
 |     columns     |    显示列的选项    | array  |         -         |   []   |
-|  fixedColumns   |       固定列的值       | array  |         -         |   []   |
+|  fixedColumns   |     固定列的值     | array  |         -         |   []   |
 |      size       |        尺寸        | string | medium/small/mini |   -    |
 |   column-prop   |  实际值对应的字段  | string |         -         |  prop  |
 |  column-label   | 显示文本对应的字段 | string |         -         | label  |
 
 ## ColumnOptions Events
 
-| 事件名称 | 说明                   |       回调参数        |
-| -------- | ---------------------- |:---------------------:|
+| 事件名称 | 说明                   |        回调参数        |
+| -------- | ---------------------- | :--------------------: |
 | input    | 绑定值变化时触发的事件 | 选中的 Column label 值 |
 
 ## 源码
