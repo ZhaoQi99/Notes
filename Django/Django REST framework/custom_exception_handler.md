@@ -46,7 +46,7 @@ User: %s
             return Response(
                 {"detail": str(exc)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
-
+        # if SystemSetting.get_default(SystemSetting.Enum.SYSTEM_MONITOR.value, False):
         if 需要发送告警:
 
             exc_type = exc.__class__.__name__
