@@ -35,6 +35,12 @@ meta_attrs = {
     "db_table": "user",
     "verbose_name": "用户",
     "verbose_name_plural": "用户",
+    "indexes": [
+	    models.Index(
+	        fields=["deleted", "inner_metric"],
+	        name=f"{self.identifier}_v_deleted_metric",
+	    ),
+    ],
 }
 attrs = {
     "__str__": lambda self: self.username,
