@@ -68,6 +68,8 @@ safe_dict = {
     "RuntimeError": RuntimeError,
     "isinstance": isinstance,
     "__build_class__": __build_class__,
+	"staticmethod": staticmethod,
+	"classmethod": classmethod,
 }
 
 
@@ -160,11 +162,17 @@ def verify_py_code(code: str) -> tuple[bool, str | None]:
     except Exception as e:
         return False, f"Code compile failed: {str(e)}"
 
-    for x in ast.walk(code_obj):
-        if type(x) is ast.Import | ast.ImportFrom:
-            for module in x.names:
-                if module.name not in ALLOWED_IMPORTS:
-                    return False, f"Import module {module.name} is not allowed."
+	for node in ast.walk(code_obj):
+	    module_names = list()
+	    if isinstance(node, ast.Import):
+	        module_names = [imported.name for imported in node.names]
+	    elif isinstance(node, ast.ImportFrom):
+	        module_names = [f"{'.' * node.level}{node.module or ''}"]
+	    else:
+	        continue
+	    for module in module_names:
+	        if not verify_import(module):
+	            return False, f"Import module {module} is not allowed."
     return True, None
 
 
